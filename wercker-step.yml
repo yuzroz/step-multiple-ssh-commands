@@ -1,0 +1,3 @@
+name: multiple-ssh-commands
+version: 0.0.1
+description: run multiple commands on a remote server.
