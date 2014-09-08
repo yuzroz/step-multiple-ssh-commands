@@ -32,6 +32,7 @@ info "environment variables $ENV"
 
 ##
 # Extract the commands from the property and combine them.
+# Each line in the option is a command, but do test whether it is not empty.
 ##
 COMMANDS=''
 
@@ -39,7 +40,9 @@ IFS="
 "
 
 for c in $WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS ; do
-    COMMANDS+="$c && "
+    if [ -n "$c" ] ; then
+        COMMANDS+="$c && "
+    fi
 done
 
 if [ -n "$COMMANDS" ] ; then
