@@ -42,7 +42,7 @@ for c in $WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS ; do
     COMMANDS+="$c && "
 done
 
-if [ ! -n "$COMMANDS" ] ; then
+if [ -n "$COMMANDS" ] ; then
     COMMANDS=${COMMANDS::${#COMMANDS} - 4}
 fi
 
