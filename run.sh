@@ -26,9 +26,8 @@ ENV=''
 
 for f in $WERCKER_MULTIPLE_SSH_COMMANDS_PROXY_VARS ; do
     var=$f;
-    ENV+=" export $f='${!var}';"
+    ENV+="export $f='${!var}'; "
 done
-info "environment variables $ENV"
 
 ##
 # Extract the commands from the property and combine them.
@@ -42,6 +41,7 @@ IFS="
 for c in $WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS ; do
     if [ -n "$c" ] ; then
         COMMANDS+="$c && "
+        info "including command: $c"
     fi
 done
 
@@ -49,7 +49,8 @@ if [ -n "$COMMANDS" ] ; then
     COMMANDS=${COMMANDS::${#COMMANDS} - 4}
 fi
 
-info "run commands: $COMMANDS"
+info "combined environment variables: $ENV"
+info "combined run commands: $COMMANDS"
 
 ssh $DEPLOY_USER@$DEPLOY_HOST $ENV $COMMANDS
 
