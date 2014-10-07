@@ -42,8 +42,7 @@ COMMANDS_SRC="${WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS/_DOLLAR_/\$}"
 ##
 COMMANDS=''
 
-IFS="
-"
+IFS="\n"
 
 for c in $COMMANDS_SRC ; do
     if [ -n "$c" ] ; then
