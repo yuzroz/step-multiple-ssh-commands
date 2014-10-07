@@ -34,7 +34,7 @@ done
 # Wercker automatically escapes $ signs. However, this makes this step unusable
 # since it parses it as a local variable. This needs to be replaced...
 ##
-COMMANDS_SRC="${WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS/_DOLLAR_/\$}"
+COMMANDS_SRC="${WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS//_DOLLAR_/\$}"
 
 ##
 # Extract the commands from the property and combine them.
