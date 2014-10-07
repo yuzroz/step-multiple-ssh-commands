@@ -37,12 +37,22 @@ done
 COMMANDS_SRC="${WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS//_DOLLAR_/\$}"
 
 ##
+# Wercker automatically replaces newlines the string value \n. This means that
+# looping becomes hard. Solution: replace the \n string with an actual newline
+# char. This can be used for looping again :).
+# Unfortunately it is an ugly solution, because EACH \n is replaced with a 
+# newline. This needs to be taken into account during development.
+##
+NEWLINE=$'\n'
+COMMANDS_SRC=${COMMANDS_SRC//\\n/$NEWLINE}
+
+##
 # Extract the commands from the property and combine them.
 # Each line in the option is a command, but do test whether it is not empty.
 ##
 COMMANDS=''
 
-IFS="\n"
+IFS=$NEWLINE
 
 for c in $COMMANDS_SRC ; do
     if [ -n "$c" ] ; then
@@ -50,6 +60,8 @@ for c in $COMMANDS_SRC ; do
         info "including command: $c"
     fi
 done
+
+unset IFS
 
 if [ -n "$COMMANDS" ] ; then
     COMMANDS=${COMMANDS::${#COMMANDS} - 4}
