@@ -8,11 +8,6 @@ if [ ! -n "$WERCKER_MULTIPLE_SSH_COMMANDS_DEPLOY_HOST" ] ; then
     exit 1
 fi
 
-if [ ! -n "$WERCKER_MULTIPLE_SSH_COMMANDS_PROXY_VARS" ] ; then
-    error "proxy-vars property is not set or empty."
-    exit 1
-fi
-
 if [ ! -n "$WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS" ] ; then
     error "commands property is not set or empty."
     exit 1
@@ -29,6 +24,11 @@ for f in $WERCKER_MULTIPLE_SSH_COMMANDS_PROXY_VARS ; do
     ENV+="export $f='${!var}'; "
 done
 
+OPTIONS=''
+
+for f in $WERCKER_MULTIPLE_SSH_COMMANDS_SSH_OPTIONS ; do
+    OPTIONS+="$f "
+done
 
 ##
 # Wercker automatically escapes $ signs. However, this makes this step unusable
@@ -70,5 +70,5 @@ fi
 info "combined environment variables: $ENV"
 info "combined run commands: $COMMANDS"
 
-ssh $DEPLOY_USER@$DEPLOY_HOST $ENV $COMMANDS
+ssh $OPTIONS $DEPLOY_USER@$DEPLOY_HOST $ENV $COMMANDS
 
