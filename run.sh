@@ -73,6 +73,7 @@ fi
 info "combined environment variables: $ENV"
 info "combined run commands: $COMMANDS"
 info "combined run options: $OPTIONS"
+info "finaly: ssh $OPTIONS $DEPLOY_USER@$DEPLOY_HOST $ENV $COMMANDS"
 
 ssh $OPTIONS $DEPLOY_USER@$DEPLOY_HOST $ENV $COMMANDS
 
