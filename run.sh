@@ -24,11 +24,14 @@ for f in $WERCKER_MULTIPLE_SSH_COMMANDS_PROXY_VARS ; do
     ENV+="export $f='${!var}'; "
 done
 
+##
+# Include options to the SSH command
+##
 OPTIONS=''
 
-for f in $WERCKER_MULTIPLE_SSH_COMMANDS_SSH_OPTIONS ; do
-    OPTIONS+="$f "
-done
+if [ ! -n "$WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS" ] ; then
+    OPTIONS="$WERCKER_MULTIPLE_SSH_COMMANDS_SSH_OPTIONS"
+fi
 
 ##
 # Wercker automatically escapes $ signs. However, this makes this step unusable
@@ -69,6 +72,7 @@ fi
 
 info "combined environment variables: $ENV"
 info "combined run commands: $COMMANDS"
+info "combined run options: $OPTIONS"
 
 ssh $OPTIONS $DEPLOY_USER@$DEPLOY_HOST $ENV $COMMANDS
 
