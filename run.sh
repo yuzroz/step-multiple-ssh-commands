@@ -1,11 +1,15 @@
 if [ ! -n "$WERCKER_MULTIPLE_SSH_COMMANDS_DEPLOY_USER" ] ; then
     error "deploy-user property is not set or empty."
     exit 1
+else
+    DEPLOY_USER="$WERCKER_MULTIPLE_SSH_COMMANDS_DEPLOY_USER"
 fi
 
 if [ ! -n "$WERCKER_MULTIPLE_SSH_COMMANDS_DEPLOY_HOST" ] ; then
     error "deploy-host property is not set or empty."
     exit 1
+else
+    DEPLOY_HOST="$WERCKER_MULTIPLE_SSH_COMMANDS_DEPLOY_HOST"
 fi
 
 if [ ! -n "$WERCKER_MULTIPLE_SSH_COMMANDS_COMMANDS" ] ; then
